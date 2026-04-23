@@ -55,8 +55,9 @@ public class Animal {
     }
 
     public void mover() {
-        System.out.println("Animal se movendo --------------");
+        System.out.println(this.nome + " se movendo --------------");
         this.localizacao++;
+        System.out.println("Posição atual: " + this.localizacao);
     }
 
 }
