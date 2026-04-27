@@ -49,13 +49,13 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "Animal [nome=" + nome + ", patas=" + patas + ", velocidade=" + velocidade + ", localizacao="
+        return "\nAnimal [nome=" + nome + ", patas=" + patas + ", velocidade=" + velocidade + ", localizacao="
                 + localizacao
                 + "]";
     }
 
     public void mover() {
-        System.out.println(this.nome + " se movendo --------------");
+        System.out.println("\n" + this.nome + " se movendo --------------");
         this.localizacao++;
         System.out.println("Posição atual: " + this.localizacao);
     }

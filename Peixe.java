@@ -1,5 +1,5 @@
 public class Peixe extends Animal {
-    private int agua; // 0 doce - 1 salgada
+    private int agua; // 0 doce / 1 salgada
 
     public Peixe(String nome, int patas, double velocidade, int localizacao, int agua) {
         super(nome, patas, velocidade, localizacao);
