@@ -67,13 +67,56 @@ public class App {
                     for (int i = 0; i < animais.size(); i++) {
                         System.out.println((i + 1) + ". " + animais.get(i).getNome());
                     }
-                    int escolhaAnimal = sc.nextInt();
-                    if (escolhaAnimal < 1 || escolhaAnimal > animais.size()) {
+                    int escolhaAnimalMover = sc.nextInt();
+                    if (escolhaAnimalMover < 1 || escolhaAnimalMover > animais.size()) {
                         System.out.println("Opção inválida!");
                         break;
                     }
-                    Animal animal = animais.get(escolhaAnimal - 1);
-                    animal.mover();
+                    Animal animalMover = animais.get(escolhaAnimalMover - 1);
+                    animalMover.mover();
+                    break;
+                case 4:
+                    System.out.println("---- EDITAR ANIMAL ----");
+                    System.out.println("Escolha o animal para editar:");
+                    for (int i = 0; i < animais.size(); i++) {
+                        System.out.println((i + 1) + ". " + animais.get(i).getNome());
+                    }
+                    int escolhaAnimalEditar = sc.nextInt();
+                    if (escolhaAnimalEditar < 1 || escolhaAnimalEditar > animais.size()) {
+                        System.out.println("Opção inválida!");
+                        break;
+                    }
+                    boolean sairEditar = false;
+                    int escolhaAtributoEditar;
+                    do {
+                        System.out.println("""
+                                O que deseja editar:
+                                1. nome
+                                2. patas
+                                3. velocidade
+                                4. localização
+                                0. Sair
+                                >>>""");
+                        escolhaAtributoEditar = sc.nextInt();
+
+                        if (escolhaAtributoEditar == 1) {
+                            System.out.println("Digite o novo nome: ");
+                            animais.get(escolhaAnimalEditar - 1).setNome(sc.nextLine());
+                        } else if (escolhaAtributoEditar == 2) {
+                            System.out.println("Digite a nova quantidade de patas: ");
+                            animais.get(escolhaAnimalEditar - 1).setPatas(sc.nextInt());
+                        } else if (escolhaAtributoEditar == 3) {
+                            System.out.println("Digite a nova velocidade: ");
+                            animais.get(escolhaAnimalEditar - 1).setVelocidade(sc.nextDouble());
+                        } else if (escolhaAtributoEditar == 3) {
+                            System.out.println("Digite a nova localização: ");
+                            animais.get(escolhaAnimalEditar - 1).setlocalizacao(sc.nextInt());
+                        } else if (escolhaAtributoEditar == 0) {
+                            sairEditar = true;
+                        } else {
+                            System.out.println("Escolha inválida, tente novamente!");
+                        }
+                    } while (!sairEditar);
                     break;
                 default:
                     System.out.println("Opção inválida!!!");
