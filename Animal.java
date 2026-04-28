@@ -49,7 +49,7 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "\nAnimal [nome=" + nome + ", patas=" + patas + ", velocidade=" + velocidade + ", localizacao="
+        return "Animal [nome=" + nome + ", patas=" + patas + ", velocidade=" + velocidade + ", localizacao="
                 + localizacao
                 + "]";
     }
