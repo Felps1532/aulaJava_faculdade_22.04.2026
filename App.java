@@ -25,6 +25,7 @@ public class App {
             int escolha = sc.nextInt();
 
             switch (escolha) {
+                // CADASTRAR ANIMAL
                 case 1:
                     System.out.println("--- Cadastrar animal ---");
                     do {
@@ -54,6 +55,8 @@ public class App {
                         animais.add(new Ave(nome, patas, velocidade, 0));
                     }
                     break;
+                // FIM CADASTRAR ANIMAL
+                // LISTAR ANIMAIS
                 case 2:
                     System.out.println("\n---- LISTAR ANIMAIS ----");
                     for (Animal a : animais) {
@@ -61,6 +64,8 @@ public class App {
                     }
                     System.out.println("");
                     break;
+                // FIM LISTAR ANIMAIS
+                // MOVER ANIMAL
                 case 3:
                     System.out.println("---- MOVER ANIMAL ----");
                     System.out.println("Escolha o animal para mover:");
@@ -75,6 +80,8 @@ public class App {
                     Animal animalMover = animais.get(escolhaAnimalMover - 1);
                     animalMover.mover();
                     break;
+                // FIM MOVER ANIMAL
+                // EDITAR ANIMAL
                 case 4:
                     System.out.println("---- EDITAR ANIMAL ----");
                     System.out.println("Escolha o animal para editar:");
@@ -118,6 +125,7 @@ public class App {
                         }
                     } while (!sairEditar);
                     break;
+                // FIM EDITAR ANIMAL
                 default:
                     System.out.println("Opção inválida!!!");
                     break;

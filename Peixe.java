@@ -16,8 +16,15 @@ public class Peixe extends Animal {
 
     @Override
     public String toString() {
-        return "Peixe [agua=" + agua + ", getAgua()=" + getAgua() + ", getNome()=" + getNome() + ", getPatas()="
-                + getPatas() + ", getVelocidade()=" + getVelocidade() + ", getlocalizacao()=" + getlocalizacao() + "]";
+        String tipoAgua = agua == 0 ? "Doce" : "Salgada";
+
+        return getNome() + "\n"
+                + "------------------------------\n"
+                + "Tipo: Peixe\n"
+                + "Patas: " + getPatas() + "\n"
+                + "Velocidade: " + getVelocidade() + "\n"
+                + "Localização: " + getlocalizacao() + "\n"
+                + "Água: " + tipoAgua + "\n";
     }
 
     @Override

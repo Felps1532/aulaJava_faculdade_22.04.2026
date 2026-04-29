@@ -49,9 +49,12 @@ public class Animal {
 
     @Override
     public String toString() {
-        return "Animal [nome=" + nome + ", patas=" + patas + ", velocidade=" + velocidade + ", localizacao="
-                + localizacao
-                + "]";
+        return nome + "\n"
+                + "------------------------------\n"
+                + "Tipo: Animal\n"
+                + "Patas: " + patas + "\n"
+                + "Velocidade: " + velocidade + "\n"
+                + "Localização: " + localizacao + "\n";
     }
 
     public void mover() {
