@@ -6,7 +6,7 @@ public class Ave extends Animal {
 
     @Override
     public String toString() {
-        return getNome() + "\n"
+        return "\n" + getNome() + "\n"
                 + "------------------------------\n"
                 + "Tipo: Ave\n"
                 + "Patas: " + getPatas() + "\n"
@@ -16,7 +16,7 @@ public class Ave extends Animal {
 
     @Override
     public void mover() {
-        System.out.println(super.getNome() + " está voando --------------");
+        System.out.println("\n" + super.getNome() + " voou --------------");
         super.setlocalizacao(getlocalizacao() + 3);
         System.out.println("Localização atual: " + super.getlocalizacao());
     }

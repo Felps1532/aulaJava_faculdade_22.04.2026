@@ -14,6 +14,7 @@ public class App {
         animais.add(new Ave("Águia", 2, 0.5, 0));
 
         do {
+            limparConsole();
             System.out.print("""
                     ------ MENU ------
                     1. Cadastrar animal
@@ -21,8 +22,9 @@ public class App {
                     3. Mover animal
                     4. Editar animal
                     0. Sair
-                    >>> """);
+                    >>>  """);
             int escolha = sc.nextInt();
+            limparConsole();
 
             switch (escolha) {
                 // CADASTRAR ANIMAL
@@ -38,7 +40,7 @@ public class App {
                     } while (escolha < 1 || escolha > 2);
 
                     System.out.print("Digite o nome: ");
-                    String nome = sc.nextLine();
+                    String nome = sc.next();
                     System.out.print("Digite as patas: ");
                     int patas = sc.nextInt();
                     System.out.print("Digite a velocidade: ");
@@ -62,7 +64,9 @@ public class App {
                     for (Animal a : animais) {
                         System.out.println(a.toString());
                     }
-                    System.out.println("");
+                    System.out.print("\nEnter para voltar ao menu.");
+                    sc.nextLine(); // limpar o buffer
+                    sc.nextLine();
                     break;
                 // FIM LISTAR ANIMAIS
                 // MOVER ANIMAL
@@ -79,20 +83,40 @@ public class App {
                     }
                     Animal animalMover = animais.get(escolhaAnimalMover - 1);
                     animalMover.mover();
+
+                    System.out.print("Pressione Enter para continuar...");
+                    sc.nextLine();
+                    sc.nextLine();
                     break;
                 // FIM MOVER ANIMAL
                 // EDITAR ANIMAL
                 case 4:
                     System.out.println("---- EDITAR ANIMAL ----");
                     System.out.println("Escolha o animal para editar:");
-                    for (int i = 0; i < animais.size(); i++) {
-                        System.out.println((i + 1) + ". " + animais.get(i).getNome());
-                    }
-                    int escolhaAnimalEditar = sc.nextInt();
-                    if (escolhaAnimalEditar < 1 || escolhaAnimalEditar > animais.size()) {
-                        System.out.println("Opção inválida!");
-                        break;
-                    }
+                    int escolhaAnimalEditar = 0;
+
+
+
+                    // PAREI AQUI, erro no índice
+
+
+                    
+                    do {
+                        for (int i = 0; i < animais.size(); i++) {
+                            System.out.println((i + 1) + ". " + animais.get(i).getNome());
+                        }
+                        escolhaAnimalEditar = sc.nextInt();
+
+                        if (escolhaAnimalEditar < 0 || escolhaAnimalEditar > animais.size()) {
+                            System.out.println("\nOpção inválida\n");
+                        }
+                    } while (escolhaAnimalEditar < 0 || escolhaAnimalEditar > animais.size());
+
+                    limparConsole();
+                    // mostrar dados do animal escolhido antes de editar
+                    System.out.println("Dados atuais:");
+                    System.out.println(animais.get(escolhaAnimalEditar + 1).toString());
+
                     boolean sairEditar = false;
                     int escolhaAtributoEditar;
                     do {
@@ -135,16 +159,6 @@ public class App {
         sc.close();
     }
 
-    public static void limparConsole() {
-        try {
-            new ProcessBuilder("cmd", "/c", "cls")
-                    .inheritIO()
-                    .start()
-                    .waitFor();
-        } catch (Exception e) {
-        }
-    }
-
     public int tipoAnimalCadastro() {
         Scanner sc = new Scanner(System.in);
         int escolha;
@@ -159,5 +173,15 @@ public class App {
 
         sc.close();
         return escolha;
+    }
+
+    public static void limparConsole() {
+        try {
+            new ProcessBuilder("cmd", "/c", "cls")
+                    .inheritIO()
+                    .start()
+                    .waitFor();
+        } catch (Exception e) {
+        }
     }
 }

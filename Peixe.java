@@ -18,7 +18,7 @@ public class Peixe extends Animal {
     public String toString() {
         String tipoAgua = agua == 0 ? "Doce" : "Salgada";
 
-        return getNome() + "\n"
+        return "\n" + getNome() + "\n"
                 + "------------------------------\n"
                 + "Tipo: Peixe\n"
                 + "Patas: " + getPatas() + "\n"
@@ -29,7 +29,7 @@ public class Peixe extends Animal {
 
     @Override
     public void mover() { // para sobrescrever um método, usamos a mesma assinatura
-        System.out.println(getNome() + " nadando --------------");
+        System.out.println("\n" + getNome() + " nadou --------------");
         super.setlocalizacao(super.getlocalizacao() + 2);
         System.out.println("Posição atual " + super.getlocalizacao());
     }

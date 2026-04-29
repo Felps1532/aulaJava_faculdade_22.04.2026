@@ -49,7 +49,7 @@ public class Animal {
 
     @Override
     public String toString() {
-        return nome + "\n"
+        return "\n" + nome + "\n"
                 + "------------------------------\n"
                 + "Tipo: Animal\n"
                 + "Patas: " + patas + "\n"
@@ -58,7 +58,7 @@ public class Animal {
     }
 
     public void mover() {
-        System.out.println("\n" + this.nome + " se movendo --------------");
+        System.out.println("\n" + this.nome + " se moveu --------------");
         this.localizacao++;
         System.out.println("Posição atual: " + this.localizacao);
     }
