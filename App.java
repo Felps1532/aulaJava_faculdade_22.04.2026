@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 public class App {
     public static void main(String[] args) {
@@ -15,44 +16,51 @@ public class App {
 
         do {
             limparConsole();
-            System.out.print("""
-                    ------ MENU ------
-                    1. Cadastrar animal
-                    2. Listar animal
-                    3. Mover animal
-                    4. Editar animal
-                    0. Sair
-                    >>>  """);
-            int escolha = sc.nextInt();
-            limparConsole();
+            int escolha = 0;
+
+            try {
+                escolha = Integer.parseInt(JOptionPane.showInputDialog(null,
+                        "------ MENU ------\r\n" +
+                                "1. Cadastrar animal\r\n" +
+                                "2. Listar animal\r\n" +
+                                "3. Mover animal\r\n" +
+                                "4. Editar animal\r\n" +
+                                "0. Sair"));
+            } catch (NumberFormatException e) {
+                e.getMessage();
+            }
 
             switch (escolha) {
                 // CADASTRAR ANIMAL
                 case 1:
-                    System.out.println("--- Cadastrar animal ---");
+                    JOptionPane.showMessageDialog(null, "--- Cadastrar animal ---");
                     do {
-                        System.out.print("""
-                                Escolha o tipo de animal:
-                                1. Peixe
-                                2. Ave
-                                >>> """);
-                        escolha = sc.nextInt();
+                        try {
+                            escolha = Integer.parseInt(JOptionPane.showInputDialog("Escolha o tipo de animal" +
+                                    "1. Peixe" +
+                                    "2. Ave"));
+                        } catch (NumberFormatException e) {
+                            e.getMessage();
+                        }
                     } while (escolha < 1 || escolha > 2);
 
-                    System.out.print("Digite o nome: ");
-                    String nome = sc.next();
-                    System.out.print("Digite as patas: ");
-                    int patas = sc.nextInt();
-                    System.out.print("Digite a velocidade: ");
-                    double velocidade = sc.nextDouble();
+                    String nome = JOptionPane.showInputDialog("Digite o nome");
+                    int patas = Integer.parseInt(JOptionPane.showInputDialog("Digite as patas"));
+                    double velocidade = (double) Integer.parseInt(JOptionPane.showInputDialog("Digite a velocidade"));
 
                     if (escolha == 1) {
-                        int tipoAgua = 2; // começa com um valor diferente de 0 e 1
+                        int tipoAgua = -1;
                         do {
-                            System.out.print("Digite o tipo de água(0 doce / 1 salgada): ");
-                            tipoAgua = sc.nextInt();
+                            try {
+                                tipoAgua = Integer.parseInt(
+                                        JOptionPane.showInputDialog("Digite o tipo de água(0 doce / 1 salgada)"));
+                            } catch (NumberFormatException e) {
+                                e.getMessage();
+                            }
                         } while (tipoAgua < 0 || tipoAgua > 1);
+
                         animais.add(new Peixe(nome, patas, velocidade, 0, tipoAgua));
+
                     } else if (escolha == 2) {
                         animais.add(new Ave(nome, patas, velocidade, 0));
                     }
@@ -60,13 +68,14 @@ public class App {
                 // FIM CADASTRAR ANIMAL
                 // LISTAR ANIMAIS
                 case 2:
-                    System.out.println("\n---- LISTAR ANIMAIS ----");
+                    JOptionPane.showMessageDialog(null, "\n---- LISTAR ANIMAIS ----");
+                    String listaAnimais = "";
                     for (Animal a : animais) {
-                        System.out.println(a.toString());
+                        listaAnimais += a.toString() + "\n";
                     }
-                    System.out.print("\nEnter para voltar ao menu.");
-                    sc.nextLine(); // limpar o buffer
-                    sc.nextLine();
+
+                    JOptionPane.showMessageDialog(null, listaAnimais);
+
                     break;
                 // FIM LISTAR ANIMAIS
                 // MOVER ANIMAL
@@ -95,12 +104,8 @@ public class App {
                     System.out.println("Escolha o animal para editar:");
                     int escolhaAnimalEditar = 0;
 
-
-
                     // PAREI AQUI, erro no índice
 
-
-                    
                     do {
                         for (int i = 0; i < animais.size(); i++) {
                             System.out.println((i + 1) + ". " + animais.get(i).getNome());
@@ -150,8 +155,11 @@ public class App {
                     } while (!sairEditar);
                     break;
                 // FIM EDITAR ANIMAL
+                case 0:
+                    sair = true;
+                    break;
                 default:
-                    System.out.println("Opção inválida!!!");
+                    JOptionPane.showMessageDialog(null, "Opção inválida!!!");
                     break;
             }
         } while (!sair);
