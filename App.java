@@ -28,74 +28,22 @@ public class App {
                     listarAnimais();
                     break;
                 case 3:
-
+                    moverAnimal();
                     break;
-
-                // EDITAR ANIMAL
                 case 4:
-                    JOptionPane.showMessageDialog(null, "---- EDITAR ANIMAL ----");
-                    int escolhaAnimalEditar = 0;
-
-                    do {
-                        for (int i = 0; i < animais.size(); i++) {
-                            JOptionPane.showMessageDialog(null, (i + 1) + ". " + animais.get(i).getNome());
-                        }
-                        escolhaAnimalEditar = Integer
-                                .parseInt(JOptionPane.showInputDialog("Escolha um animal para editar"));
-
-                        if (escolhaAnimalEditar < 0 || escolhaAnimalEditar > animais.size()) {
-                            JOptionPane.showMessageDialog(null, "\nOpção inválida!");
-                        }
-                    } while (escolhaAnimalEditar < 0 || escolhaAnimalEditar > animais.size());
-
-                    // mostrar dados do animal escolhido antes de editar
-                    JOptionPane.showMessageDialog(null,
-                            "Dados atuais:\n" + animais.get(escolhaAnimalEditar + 1).toString());
-
-                    boolean sairEditar = false;
-                    int escolhaAtributoEditar;
-                    do {
-                        escolhaAtributoEditar = Integer.parseInt(JOptionPane.showInputDialog(null,
-                                "O que deseja editar\n" +
-                                        "1. nome\n" +
-                                        "2. patas\n" +
-                                        "3. velocidade\n" +
-                                        "4. localização\n" +
-                                        "0. sair"));
-
-                        if (escolhaAtributoEditar == 1) {
-                            System.out.println("Digite o novo nome: ");
-                            animais.get(escolhaAnimalEditar - 1).setNome(sc.nextLine());
-                        } else if (escolhaAtributoEditar == 2) {
-                            System.out.println("Digite a nova quantidade de patas: ");
-                            animais.get(escolhaAnimalEditar - 1).setPatas(sc.nextInt());
-                        } else if (escolhaAtributoEditar == 3) {
-                            System.out.println("Digite a nova velocidade: ");
-                            animais.get(escolhaAnimalEditar - 1).setVelocidade(sc.nextDouble());
-                        } else if (escolhaAtributoEditar == 3) {
-                            System.out.println("Digite a nova localização: ");
-                            animais.get(escolhaAnimalEditar - 1).setlocalizacao(sc.nextInt());
-                        } else if (escolhaAtributoEditar == 0) {
-                            sairEditar = true;
-                        } else {
-                            System.out.println("Escolha inválida, tente novamente!");
-                        }
-                    } while (!sairEditar);
+                    editarAnimal();
                     break;
-                // FIM EDITAR ANIMAL
                 case 0:
                     sair = true;
                     break;
                 default:
-                    JOptionPane.showMessageDialog(null, "Opção inválida!!!");
+                    JOptionPane.showMessageDialog(null, "Opção inválida!");
                     break;
             }
         } while (!sair);
-
-        sc.close();
     }
 
-    public int tipoAnimalCadastro() {
+    public static int tipoAnimalCadastro() {
         Scanner sc = new Scanner(System.in);
         int escolha;
 
@@ -171,7 +119,7 @@ public class App {
 
         if (tamanhoArray < animais.size()) {
             JOptionPane.showMessageDialog(null,
-                    animais.get(animais.size()).getNome() + " cadastrado(a) com sucesso!");
+                    animais.get(animais.size() - 1).getNome() + " cadastrado(a) com sucesso!");
         }
     }
     // FIM MÉTODO CADASTRAR ANIMAL ----
@@ -189,17 +137,77 @@ public class App {
 
     // MÉTODO MOVER ANIMAL
     public static void moverAnimal() {
-        System.out.println("---- MOVER ANIMAL ----");
-        System.out.println("Escolha o animal para mover:");
+        JOptionPane.showMessageDialog(null, "---- MOVER ANIMAL ----");
+        String listaAnimaisMover = "Escolha o animal para mover:\n";
+
         for (int i = 0; i < animais.size(); i++) {
-            System.out.println((i + 1) + ". " + animais.get(i).getNome());
+            listaAnimaisMover += (i + 1) + ". " + animais.get(i).getNome() + "\n";
         }
-        int escolhaAnimalMover = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha"));
+
+        int escolhaAnimalMover = Integer.parseInt(JOptionPane.showInputDialog(null, listaAnimaisMover));
         if (escolhaAnimalMover < 1 || escolhaAnimalMover > animais.size()) {
             JOptionPane.showMessageDialog(null, "Opção inválida!");
+        } else {
+            Animal animalMover = animais.get(escolhaAnimalMover - 1);
+            animalMover.mover();
         }
-        Animal animalMover = animais.get(escolhaAnimalMover - 1);
-        animalMover.mover();
     }
     // FIM MÉTODO MOVER ANIMAL
+
+    // MÉTODO EDITAR ANIMAL
+    public static void editarAnimal() {
+        JOptionPane.showMessageDialog(null, "---- EDITAR ANIMAL ----");
+        int escolhaAnimalEditar = 0;
+        String animaisEditar = "Escolha um animal para editar:\n";
+
+        do {
+            for (int i = 0; i < animais.size(); i++) {
+                animaisEditar += (i + 1) + ". " + animais.get(i).getNome() + "\n";
+            }
+
+            escolhaAnimalEditar = Integer
+                    .parseInt(JOptionPane.showInputDialog(animaisEditar));
+
+            if (escolhaAnimalEditar < 0 || escolhaAnimalEditar >= animais.size()) {
+                JOptionPane.showMessageDialog(null, "\nOpção inválida!");
+            }
+        } while (escolhaAnimalEditar < 0 || escolhaAnimalEditar > animais.size());
+
+        boolean sairEditar = false;
+        int escolhaAtributoEditar;
+        do {
+            escolhaAtributoEditar = Integer.parseInt(JOptionPane.showInputDialog(null,
+                    "Dados atuais: " +
+                            animais.get(escolhaAnimalEditar - 1).toString() +
+                            "\n---------------------\n" +
+                            "O que deseja editar?\n" +
+                            "1. nome\n" +
+                            "2. patas\n" +
+                            "3. velocidade\n" +
+                            "4. localização\n" +
+                            "0. sair"));
+
+            if (escolhaAtributoEditar == 1) {
+                String novoNome = JOptionPane.showInputDialog("Digite o novo nome:");
+                animais.get(escolhaAnimalEditar - 1).setNome(novoNome);
+            } else if (escolhaAtributoEditar == 2) {
+                int novasPatas = Integer.parseInt(
+                        JOptionPane.showInputDialog("Digite a nova quantidade de patas:"));
+                animais.get(escolhaAnimalEditar - 1).setPatas(novasPatas);
+            } else if (escolhaAtributoEditar == 3) {
+                double novaVelocidade = Double.parseDouble(
+                        JOptionPane.showInputDialog("Digite a nova velocidade:"));
+                animais.get(escolhaAnimalEditar - 1).setVelocidade(novaVelocidade);
+            } else if (escolhaAtributoEditar == 4) {
+                int novaLocalizacao = Integer.parseInt(
+                        JOptionPane.showInputDialog("Digite a nova localizacao:"));
+                animais.get(escolhaAnimalEditar - 1).setlocalizacao(novaLocalizacao);
+            } else if (escolhaAtributoEditar == 0) {
+                sairEditar = true;
+            } else {
+                JOptionPane.showMessageDialog(null, "Escolha invalida, tente novamente!");
+            }
+        } while (!sairEditar);
+    }
+    // FIM MÉTODO EDITAR ANIMAL
 }

@@ -1,3 +1,5 @@
+import javax.swing.JOptionPane;
+
 public class Animal {
     // nome, patas, velocidade, localização
     private String nome;
@@ -54,13 +56,14 @@ public class Animal {
                 + "Tipo: Animal\n"
                 + "Patas: " + patas + "\n"
                 + "Velocidade: " + velocidade + "\n"
-                + "Localização: " + localizacao + "\n";
+                + "Localizacao: " + localizacao + "\n";
     }
 
     public void mover() {
-        System.out.println("\n" + this.nome + " se moveu --------------");
         this.localizacao++;
-        System.out.println("Posição atual: " + this.localizacao);
+        JOptionPane.showMessageDialog(null,
+                this.nome + " se moveu\n"
+                        + "Posicao atual: " + this.localizacao);
     }
 
 }
