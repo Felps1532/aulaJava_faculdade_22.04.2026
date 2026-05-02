@@ -1,5 +1,6 @@
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
+
 import javax.swing.JOptionPane;
 
 public class App {
@@ -7,9 +8,6 @@ public class App {
     static ArrayList<Animal> animais = new ArrayList<Animal>();
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        // Animal animais[] = new Animal[10];
         boolean sair = false;
 
         // CADASTRO DE ANIMAIS EXEMPLO
@@ -25,65 +23,45 @@ public class App {
             switch (escolha) {
                 case 1:
                     cadastrarAnimal();
+                    break;
                 case 2:
                     listarAnimais();
                     break;
-                // FIM LISTAR ANIMAIS
-                // MOVER ANIMAL
                 case 3:
-                    System.out.println("---- MOVER ANIMAL ----");
-                    System.out.println("Escolha o animal para mover:");
-                    for (int i = 0; i < animais.size(); i++) {
-                        System.out.println((i + 1) + ". " + animais.get(i).getNome());
-                    }
-                    int escolhaAnimalMover = sc.nextInt();
-                    if (escolhaAnimalMover < 1 || escolhaAnimalMover > animais.size()) {
-                        System.out.println("Opção inválida!");
-                        break;
-                    }
-                    Animal animalMover = animais.get(escolhaAnimalMover - 1);
-                    animalMover.mover();
 
-                    System.out.print("Pressione Enter para continuar...");
-                    sc.nextLine();
-                    sc.nextLine();
                     break;
-                // FIM MOVER ANIMAL
+
                 // EDITAR ANIMAL
                 case 4:
-                    System.out.println("---- EDITAR ANIMAL ----");
-                    System.out.println("Escolha o animal para editar:");
+                    JOptionPane.showMessageDialog(null, "---- EDITAR ANIMAL ----");
                     int escolhaAnimalEditar = 0;
-
-                    // PAREI AQUI, erro no índice
 
                     do {
                         for (int i = 0; i < animais.size(); i++) {
-                            System.out.println((i + 1) + ". " + animais.get(i).getNome());
+                            JOptionPane.showMessageDialog(null, (i + 1) + ". " + animais.get(i).getNome());
                         }
-                        escolhaAnimalEditar = sc.nextInt();
+                        escolhaAnimalEditar = Integer
+                                .parseInt(JOptionPane.showInputDialog("Escolha um animal para editar"));
 
                         if (escolhaAnimalEditar < 0 || escolhaAnimalEditar > animais.size()) {
-                            System.out.println("\nOpção inválida\n");
+                            JOptionPane.showMessageDialog(null, "\nOpção inválida!");
                         }
                     } while (escolhaAnimalEditar < 0 || escolhaAnimalEditar > animais.size());
 
                     // mostrar dados do animal escolhido antes de editar
-                    System.out.println("Dados atuais:");
-                    System.out.println(animais.get(escolhaAnimalEditar + 1).toString());
+                    JOptionPane.showMessageDialog(null,
+                            "Dados atuais:\n" + animais.get(escolhaAnimalEditar + 1).toString());
 
                     boolean sairEditar = false;
                     int escolhaAtributoEditar;
                     do {
-                        System.out.println("""
-                                O que deseja editar:
-                                1. nome
-                                2. patas
-                                3. velocidade
-                                4. localização
-                                0. Sair
-                                >>>""");
-                        escolhaAtributoEditar = sc.nextInt();
+                        escolhaAtributoEditar = Integer.parseInt(JOptionPane.showInputDialog(null,
+                                "O que deseja editar\n" +
+                                        "1. nome\n" +
+                                        "2. patas\n" +
+                                        "3. velocidade\n" +
+                                        "4. localização\n" +
+                                        "0. sair"));
 
                         if (escolhaAtributoEditar == 1) {
                             System.out.println("Digite o novo nome: ");
@@ -199,7 +177,7 @@ public class App {
     // FIM MÉTODO CADASTRAR ANIMAL ----
 
     // MÉTODO LISTAR ANIMAIS ----
-    public void listarAnimais() {
+    public static void listarAnimais() {
         String listaAnimais = "----- ANIMAIS -----\n";
         for (Animal a : animais) {
             listaAnimais += a.toString() + "\n";
@@ -208,4 +186,20 @@ public class App {
         JOptionPane.showMessageDialog(null, listaAnimais);
     }
     // FIM MÉTODO LISTAR ANIMAIS ----
+
+    // MÉTODO MOVER ANIMAL
+    public static void moverAnimal() {
+        System.out.println("---- MOVER ANIMAL ----");
+        System.out.println("Escolha o animal para mover:");
+        for (int i = 0; i < animais.size(); i++) {
+            System.out.println((i + 1) + ". " + animais.get(i).getNome());
+        }
+        int escolhaAnimalMover = Integer.parseInt(JOptionPane.showInputDialog(null, "Escolha"));
+        if (escolhaAnimalMover < 1 || escolhaAnimalMover > animais.size()) {
+            JOptionPane.showMessageDialog(null, "Opção inválida!");
+        }
+        Animal animalMover = animais.get(escolhaAnimalMover - 1);
+        animalMover.mover();
+    }
+    // FIM MÉTODO MOVER ANIMAL
 }
