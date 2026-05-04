@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import javax.swing.JOptionPane;
 
 public class App {
@@ -8,8 +7,6 @@ public class App {
     static ArrayList<Animal> animais = new ArrayList<Animal>();
 
     public static void main(String[] args) {
-        boolean sair = false;
-
         // CADASTRO DE ANIMAIS EXEMPLO
         animais.add(new Animal("Doguinho", 3, 5.5, 0)); // instanciando um objeto da classe Animal
         animais.add(new Animal("JacaréVaiPraCasa", 4, 3.5, 0));
@@ -17,8 +14,27 @@ public class App {
         animais.add(new Ave("Águia", 2, 0.5, 0));
         // FIM CADASTRO DE ANIMAIS EXEMPLO
 
+        menuPrincipal();
+    }
+
+    // MÉTODO MENU PRINCIPAL ----
+    public static void menuPrincipal() {
+        boolean sairMenu = false;
+        int escolha = 0;
+
         do {
-            int escolha = menuPrincipal();
+            try {
+                escolha = Integer.parseInt(JOptionPane.showInputDialog(null,
+                        "------ MENU ------\r\n" +
+                                "1. Cadastrar animal\r\n" +
+                                "2. Listar animal\r\n" +
+                                "3. Mover animal\r\n" +
+                                "4. Editar animal\r\n" +
+                                "0. Sair"));
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Formato de número não aceito!", "Exceção",
+                        JOptionPane.ERROR_MESSAGE);
+            }
 
             switch (escolha) {
                 case 1:
@@ -34,48 +50,10 @@ public class App {
                     editarAnimal();
                     break;
                 case 0:
-                    sair = true;
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Opção inválida!");
+                    sairMenu = true;
                     break;
             }
-        } while (!sair);
-    }
-
-    public static int tipoAnimalCadastro() {
-        Scanner sc = new Scanner(System.in);
-        int escolha;
-
-        do {
-            System.out.print("""
-                    1. Peixe
-                    2. Ave
-                    >>> """);
-            escolha = sc.nextInt();
-        } while (escolha < 1 || escolha > 2);
-
-        sc.close();
-        return escolha;
-    }
-
-    // MÉTODO MENU PRINCIPAL ----
-    public static int menuPrincipal() {
-        int escolha = 0;
-
-        try {
-            escolha = Integer.parseInt(JOptionPane.showInputDialog(null,
-                    "------ MENU ------\r\n" +
-                            "1. Cadastrar animal\r\n" +
-                            "2. Listar animal\r\n" +
-                            "3. Mover animal\r\n" +
-                            "4. Editar animal\r\n" +
-                            "0. Sair"));
-        } catch (NumberFormatException e) {
-            e.getMessage();
-        }
-
-        return escolha;
+        } while (!sairMenu || (escolha < 0 || escolha > 4));
     }
     // FIM MÉTODO MENU PRINCIPAL ----
 
@@ -202,7 +180,6 @@ public class App {
                 } catch (NumberFormatException e) {
                     e.getMessage();
                 }
-
             } while (escolhaAtributoEditar < 1 || escolhaAnimalEditar > animais.size());
 
             switch (escolhaAtributoEditar) {
@@ -226,7 +203,7 @@ public class App {
                     animais.get(escolhaAnimalEditar - 1).setlocalizacao(novaLocalizacao);
                     break;
                 case 0:
-                    sairEditar = true;
+                    menuPrincipal();
                     break;
                 default:
                     JOptionPane.showMessageDialog(null, "Escolha invalida, tente novamente!");
