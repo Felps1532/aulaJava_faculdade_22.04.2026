@@ -157,7 +157,7 @@ public class App {
     // MÉTODO EDITAR ANIMAL
     public static void editarAnimal() {
         JOptionPane.showMessageDialog(null, "---- EDITAR ANIMAL ----");
-        int escolhaAnimalEditar = 0;
+        int escolhaAnimalEditar = -1;
         String animaisEditar = "Escolha um animal para editar:\n";
 
         for (int i = 0; i < animais.size(); i++) {
@@ -169,55 +169,67 @@ public class App {
                 escolhaAnimalEditar = Integer
                         .parseInt(JOptionPane.showInputDialog(animaisEditar));
 
-                if (escolhaAnimalEditar < 0 || escolhaAnimalEditar > animais.size()) {
-                    JOptionPane.showMessageDialog(null, "\nOpção inválida!");
+                if (escolhaAnimalEditar < 1 || escolhaAnimalEditar > animais.size()) {
+                    JOptionPane.showMessageDialog(null, "\nOpção inválida!", "Erro de Index",
+                            JOptionPane.ERROR_MESSAGE);
                 }
             } catch (IndexOutOfBoundsException e) {
                 JOptionPane.showMessageDialog(null, "Index fora dos limites!\nErro: " + e.getMessage(),
                         "Exceção", JOptionPane.ERROR_MESSAGE);
+                escolhaAnimalEditar = -1;
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "Formato de número não aceito!\nErro: " + e.getMessage(),
                         "Exceção", JOptionPane.ERROR_MESSAGE);
+                escolhaAnimalEditar = -1;
             }
-        } while (escolhaAnimalEditar < 0 || escolhaAnimalEditar > animais.size());
+        } while (escolhaAnimalEditar < 1 || escolhaAnimalEditar > animais.size());
 
         boolean sairEditar = false;
         int escolhaAtributoEditar = -1;
         do {
-            try {
-                escolhaAtributoEditar = Integer.parseInt(JOptionPane.showInputDialog(null,
-                        "Dados atuais: " +
-                                animais.get(escolhaAnimalEditar - 1).toString() +
-                                "\n---------------------\n" +
-                                "O que deseja editar?\n" +
-                                "1. nome\n" +
-                                "2. patas\n" +
-                                "3. velocidade\n" +
-                                "4. localização\n" +
-                                "0. sair"));
-            } catch (NumberFormatException e) {
-                e.getMessage();
-            }
+            do {
+                try {
+                    escolhaAtributoEditar = Integer.parseInt(JOptionPane.showInputDialog(null,
+                            "Dados atuais: " +
+                                    animais.get(escolhaAnimalEditar - 1).toString() +
+                                    "\n---------------------\n" +
+                                    "O que deseja editar?\n" +
+                                    "1. nome\n" +
+                                    "2. patas\n" +
+                                    "3. velocidade\n" +
+                                    "4. localização\n" +
+                                    "(0. menu principal)"));
+                } catch (NumberFormatException e) {
+                    e.getMessage();
+                }
 
-            if (escolhaAtributoEditar == 1) {
-                String novoNome = JOptionPane.showInputDialog("Digite o novo nome:");
-                animais.get(escolhaAnimalEditar - 1).setNome(novoNome);
-            } else if (escolhaAtributoEditar == 2) {
-                int novasPatas = Integer.parseInt(
-                        JOptionPane.showInputDialog("Digite a nova quantidade de patas:"));
-                animais.get(escolhaAnimalEditar - 1).setPatas(novasPatas);
-            } else if (escolhaAtributoEditar == 3) {
-                double novaVelocidade = Double.parseDouble(
-                        JOptionPane.showInputDialog("Digite a nova velocidade:"));
-                animais.get(escolhaAnimalEditar - 1).setVelocidade(novaVelocidade);
-            } else if (escolhaAtributoEditar == 4) {
-                int novaLocalizacao = Integer.parseInt(
-                        JOptionPane.showInputDialog("Digite a nova localizacao:"));
-                animais.get(escolhaAnimalEditar - 1).setlocalizacao(novaLocalizacao);
-            } else if (escolhaAtributoEditar == 0) {
-                sairEditar = true;
-            } else {
-                JOptionPane.showMessageDialog(null, "Escolha invalida, tente novamente!");
+            } while (escolhaAtributoEditar < 1 || escolhaAnimalEditar > animais.size());
+
+            switch (escolhaAtributoEditar) {
+                case 1:
+                    String novoNome = JOptionPane.showInputDialog("Digite o novo nome:");
+                    animais.get(escolhaAnimalEditar - 1).setNome(novoNome);
+                    break;
+                case 2:
+                    int novasPatas = Integer.parseInt(
+                            JOptionPane.showInputDialog("Digite a nova quantidade de patas:"));
+                    animais.get(escolhaAnimalEditar - 1).setPatas(novasPatas);
+                    break;
+                case 3:
+                    double novaVelocidade = Double.parseDouble(
+                            JOptionPane.showInputDialog("Digite a nova velocidade:"));
+                    animais.get(escolhaAnimalEditar - 1).setVelocidade(novaVelocidade);
+                    break;
+                case 4:
+                    int novaLocalizacao = Integer.parseInt(
+                            JOptionPane.showInputDialog("Digite a nova localizacao:"));
+                    animais.get(escolhaAnimalEditar - 1).setlocalizacao(novaLocalizacao);
+                    break;
+                case 0:
+                    sairEditar = true;
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Escolha invalida, tente novamente!");
             }
         } while (!sairEditar);
     }
